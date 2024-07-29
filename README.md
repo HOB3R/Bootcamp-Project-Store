@@ -80,3 +80,8 @@ Contributions to this project are welcome. If you find any bugs or have suggesti
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+### Disclaimer
+
+This project uses images from brands like Nike, Under Armour, and others for demonstration purposes only. These images are the property of their respective owners and are used here solely for educational, non-commercial purposes.
+
