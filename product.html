@@ -1,119 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Details of the selected product.">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Product Details</title>
+    <title>Product Details - Fitness+</title>
     <style>
-        .product-header {
-            font-size: 1.5rem;
-            font-weight: 700;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
         }
+
         .product-details {
             display: flex;
             gap: 2rem;
         }
+
         .product-images {
             flex: 1;
         }
+
         .product-images img {
             width: 100%;
             height: auto;
             border-radius: 0.5rem;
             object-fit: cover;
-            margin-bottom: 1rem;
         }
-        .thumbnail-container {
-            display: flex;
-            gap: 1rem;
-        }
-        .thumbnail {
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-        .thumbnail:hover {
-            opacity: 1;
-        }
+
         .product-info {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
+
         .product-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
+
         .product-description {
             font-size: 1rem;
             color: #4b5563;
             margin-bottom: 1rem;
         }
+
         .product-price {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #1f2937;
             margin-bottom: 2rem;
         }
+
         .add-to-cart-button {
             background-color: #0071e3;
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
+            border-radius: 2rem;
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
+
         .add-to-cart-button:hover {
             background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .notification button {
+            margin-top: 1rem;
+            background-color: #0071e3;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .notification button:hover {
+            background-color: #005bb5;
+        }
+
+        .notification-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        #darkModeToggle {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .dark body {
+            background-color: #1c1c1e;
+            color: #f5f5f7;
+        }
+
+        .dark .bg-white {
+            background-color: #2c2c2e;
+        }
+
+        .dark .text-gray-600 {
+            color: #a1a1a6;
+        }
+
+        .dark .bg-gray-100 {
+            background-color: #1c1c1e;
+        }
+
+        .dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+        }
+
+        .dark .notification {
+            background-color: #2c2c2e;
+            color: #f5f5f7;
+        }
+
+        .dark .notification button {
+            background-color: #0071e3;
+            color: #f5f5f7;
+        }
+
+        .dark .notification button:hover {
+            background-color: #005bb5;
+        }
+
+        .dark .text-gray-600 {
+            color: #a1a1a6;
+        }
+
+        .dark .product-price {
+            color: #f5f5f7;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainImage = document.querySelector('.main-image');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-
-            thumbnails.forEach(thumbnail => {
-                thumbnail.addEventListener('click', () => {
-                    mainImage.src = thumbnail.src;
-                });
-            });
-        });
-    </script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <header class="bg-white shadow-md sticky top-0 z-10">
+
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+    <header class="bg-black shadow-md sticky top-0 z-10">
         <nav class="container mx-auto p-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-black">Fitness+</div>
-            <div>
-                <a href="cart.html" class="text-lg text-gray-900 hover:text-blue-500">Cart</a>
+            <div class="text-2xl font-bold text-white cursor-pointer" onclick="location.href='index.html'">Fitness+
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="cart.html" class="text-white hover:text-gray-300 transition-colors duration-300">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path
+                            d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+                    </svg>
+                </a>
+                <button id="darkModeToggle" class="text-white focus:outline-none">
+                    <svg class="icon" viewBox="0 0 24 24" id="moonIcon">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z" />
+                    </svg>
+                    <svg class="icon hidden" viewBox="0 0 24 24" id="sunIcon">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1l-1.8 1.8a.8.8 0 0 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM6.3 17.7a.8.8 0 0 1 0 1l-1.7 1.8a.8.8 0 1 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1 0l1.8 1.8a.8.8 0 1 1-1 1L3.5 4.6a.8.8 0 0 1 0-1zm14.2 14.2a.8.8 0 0 1 1 0l1.8 1.7a.8.8 0 0 1-1 1l-1.8-1.7a.8.8 0 0 1 0-1z" />
+                    </svg>
+                </button>
             </div>
         </nav>
     </header>
-    <main class="container mx-auto p-4">
-        <h1 class="product-header">Product Details</h1>
-        <div class="bg-white p-6 rounded-lg shadow-lg product-details">
-            <div class="product-images">
-                <img src="img/product1.jpg" alt="Product 1" class="main-image w-full h-auto rounded-lg mb-4">
-                <div class="thumbnail-container">
-                    <img src="img/product1.jpg" alt="Product 1" class="thumbnail w-24 h-24 object-cover rounded-lg">
-                    <img src="img/product2.jpg" alt="Product 2" class="thumbnail w-24 h-24 object-cover rounded-lg">
-                    <img src="img/product3.jpg" alt="Product 3" class="thumbnail w-24 h-24 object-cover rounded-lg">
-                </div>
+    <main class="container mx-auto px-6 py-12">
+        <div
+            class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg product-details flex flex-col md:flex-row gap-12">
+            <div class="product-images md:w-1/2">
+                <img src="img/product1.jpg" alt="Product 1" class="w-full h-auto rounded-lg">
             </div>
-            <div class="product-info">
-                <h1 class="product-title">Product 1</h1>
-                <p class="product-description">Detailed description of product 1. This product is great for improving your fitness and overall health. It features high-quality materials and advanced technology to ensure the best performance.</p>
-                <p class="product-price">$29.99</p>
-                <button class="add-to-cart-button">Add to Cart</button>
+            <div class="product-info md:w-1/2">
+                <h1 class="product-title text-3xl md:text-4xl font-bold mb-4">Product 1</h1>
+                <p class="product-description text-gray-600 dark:text-gray-400 mb-6">Detailed description of product 1.
+                    This product is great for improving your fitness and overall health. It features high-quality
+                    materials and advanced technology to ensure the best performance.</p>
+                <p class="product-price text-3xl font-bold mb-8">$29.99</p>
+                <button
+                    class="add-to-cart-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 w-full md:w-auto"
+                    data-product-id="1" data-product-name="Product 1" data-product-price="29.99">Add to Cart</button>
             </div>
         </div>
     </main>
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-8 mb-8">
+                <a href="#" class="hover:text-gray-300 transition duration-300">Home</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">Shop</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">About</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">Contact</a>
+            </div>
+            <p class="text-center text-gray-500">&copy; 2024 Fitness+ Store. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/scripts.js"></script>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.querySelector('html');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            moonIcon.classList.toggle('hidden');
+            sunIcon.classList.toggle('hidden');
+
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            html.classList.add('dark');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+
+        function showNotification(productName) {
+            const notification = document.createElement('div');
+            notification.classList.add('notification');
+            notification.innerHTML = `
+                <p>Product added to cart: ${productName}</p>
+                <div class="notification-buttons">
+                    <button onclick="window.location.href='cart.html'">Go to Cart</button>
+                    <button onclick="this.parentElement.parentElement.remove()">Continue Shopping</button>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        document.querySelector('.add-to-cart-button').addEventListener('click', function () {
+            const productName = this.getAttribute('data-product-name');
+            showNotification(productName);
+        });
+    </script>
 </body>
+
 </html>

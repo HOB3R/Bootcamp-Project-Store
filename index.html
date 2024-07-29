@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,18 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Fitness+ Shop</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .hero {
             position: relative;
             height: 70vh;
             overflow: hidden;
         }
+
         .hero video {
             position: absolute;
             top: 50%;
@@ -23,6 +31,7 @@
             z-index: 0;
             transform: translate(-50%, -50%);
         }
+
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -36,122 +45,163 @@
             color: white;
             z-index: 1;
         }
+
         .hero-text {
             text-align: center;
             max-width: 80%;
             margin: 0 auto;
         }
+
         .hero-text h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
+
         .hero-text p {
             font-size: 1.25rem;
             margin-bottom: 2rem;
         }
+
         .hero-text a {
             background-color: #0071e3;
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
+            border-radius: 2rem;
             font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
+
         .hero-text a:hover {
             background-color: #005bb5;
+            transform: scale(1.05);
         }
-        .category-card {
-            position: relative;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .category-card,
+        .product-card {
+            transition: all 0.3s ease;
         }
-        .category-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease;
-        }
-        .category-card:hover {
+
+        .category-card:hover,
+        .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        .category-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        #darkModeToggle {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .dark body {
+            background-color: #1c1c1e;
+            color: #f5f5f7;
+        }
+
+        .dark .bg-white {
+            background-color: #2c2c2e;
+        }
+
+        .dark .text-gray-600 {
+            color: #a1a1a6;
+        }
+
+        .dark .bg-gray-100 {
+            background-color: #1c1c1e;
+        }
+
+        .dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+        }
+
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
             display: flex;
-            align-items: center;
-            justify-content: center;
             flex-direction: column;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            align-items: center;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
         }
-        .category-card:hover .category-overlay {
-            opacity: 1;
-        }
-        .category-overlay h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .category-overlay p {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-        .category-overlay a {
+
+        .notification button {
+            margin-top: 1rem;
             background-color: #0071e3;
             color: white;
             padding: 0.5rem 1rem;
+            border: none;
             border-radius: 0.375rem;
-            text-decoration: none;
+            cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 200px;
         }
-        .category-overlay a:hover {
+
+        .notification button:hover {
             background-color: #005bb5;
         }
-        footer {
-            background-color: #000;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        footer .footer-links {
+
+        .notification-buttons {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        footer .footer-links a {
-            color: #a0aec0;
-            text-decoration: none;
-            transition: color 0.3s ease;
+
+        .dark .notification {
+            background-color: #2c2c2e;
+            color: #f5f5f7;
         }
-        footer .footer-links a:hover {
-            color: white;
+
+        .dark .notification button {
+            background-color: #0071e3;
+            color: #f5f5f7;
         }
-        footer p {
-            font-size: 0.8rem;
-            color: #a0aec0;
+
+        .dark .notification button:hover {
+            background-color: #005bb5;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
     <header class="bg-black shadow-md sticky top-0 z-10">
         <nav class="container mx-auto p-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-white">Fitness+</div>
-            <div>
-                <a href="cart.html" class="flex items-center text-white hover:text-gray-300">
-                    <span class="ml-2">Cart</span>
+            <div class="text-2xl font-bold text-white cursor-pointer" onclick="location.href='index.html'">Fitness+
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="cart.html" class="text-white hover:text-gray-300 transition-colors duration-300">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path
+                            d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+                    </svg>
                 </a>
+                <button id="darkModeToggle" class="text-white focus:outline-none">
+                    <svg class="icon" viewBox="0 0 24 24" id="moonIcon">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z" />
+                    </svg>
+                    <svg class="icon hidden" viewBox="0 0 24 24" id="sunIcon">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1l-1.8 1.8a.8.8 0 0 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM6.3 17.7a.8.8 0 0 1 0 1l-1.7 1.8a.8.8 0 1 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1 0l1.8 1.8a.8.8 0 1 1-1 1L3.5 4.6a.8.8 0 0 1 0-1zm14.2 14.2a.8.8 0 0 1 1 0l1.8 1.7a.8.8 0 0 1-1 1l-1.8-1.7a.8.8 0 0 1 0-1z" />
+                    </svg>
+                </button>
             </div>
         </nav>
     </header>
@@ -168,78 +218,155 @@
         </div>
     </div>
     <main class="container mx-auto p-4">
-        <section id="categories" class="my-12">
-            <h2 class="text-3xl font-bold mb-6">Our Categories</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="category-card bg-white shadow-lg">
-                    <img src="img/cat1.jpeg" alt="Fitness Equipment">
-                    <div class="category-overlay">
-                        <h3>Fitness Equipment</h3>
-                        <p>High-quality equipment to help you stay fit.</p>
-                        <a href="#">Shop Now</a>
+        <section id="categories" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Our Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div class="category-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="img/cat1.jpeg" alt="Fitness Equipment" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-semibold mb-4">Fitness Equipment</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">High-quality equipment to help you stay fit.
+                        </p>
+                        <a href="#"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full inline-block transition duration-300 transform hover:scale-105">Shop
+                            Now</a>
                     </div>
                 </div>
-                <div class="category-card bg-white shadow-lg">
-                    <img src="img/cat2.jpeg" alt="Sports Wear">
-                    <div class="category-overlay">
-                        <h3>Sports Wear</h3>
-                        <p>Comfortable and stylish sports apparel.</p>
-                        <a href="#">Shop Now</a>
+                <div class="category-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="img/cat2.jpeg" alt="Sports Wear" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-semibold mb-4">Sports Wear</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Comfortable and stylish sports apparel.</p>
+                        <a href="#"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full inline-block transition duration-300 transform hover:scale-105">Shop
+                            Now</a>
                     </div>
                 </div>
-                <div class="category-card bg-white shadow-lg">
-                    <img src="img/cat3.png" alt="Nutrition">
-                    <div class="category-overlay">
-                        <h3>Nutrition</h3>
-                        <p>Supplements and nutrition for your health.</p>
-                        <a href="#">Shop Now</a>
+                <div class="category-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="img/cat3.png" alt="Nutrition" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-semibold mb-4">Nutrition</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Supplements and nutrition for your health.</p>
+                        <a href="#"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full inline-block transition duration-300 transform hover:scale-105">Shop
+                            Now</a>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="my-12">
-            <h2 class="text-3xl font-bold mb-6">Featured Products</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="img/product1.jpg" alt="Product 1" class="w-full h-48 object-cover rounded-t-lg">
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Product 1</h2>
-                        <p class="text-gray-700 mb-4">Description of product 1.</p>
-                        <p class="text-2xl font-bold mb-4">$29.99</p>
-                        <a href="product.html" class="block bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600">View Product</a>
+        <section class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Featured Products</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div class="product-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <a href="product.html" class="block">
+                        <img src="img/rugby2.jpeg" alt="Product 1" class="w-full h-64 object-cover">
+                    </a>
+                    <div class="p-8">
+                        <a href="product.html" class="block">
+                            <h3 class="text-2xl font-semibold mb-4">Product 1</h3>
+                        </a>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Description of product 1.</p>
+                        <p class="text-3xl font-bold mb-6">$29.99</p>
+                        <button
+                            class="add-to-cart-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full transition duration-300 transform hover:scale-105"
+                            data-product-id="1" data-product-name="Product 1" data-product-price="29.99">Add to
+                            Cart</button>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="img/product2.jpg" alt="Product 2" class="w-full h-48 object-cover rounded-t-lg">
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Product 2</h2>
-                        <p class="text-gray-700 mb-4">Description of product 2.</p>
-                        <p class="text-2xl font-bold mb-4">$39.99</p>
-                        <a href="product.html" class="block bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600">View Product</a>
+                <div class="product-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <a href="product.html" class="block">
+                        <img src="img/football.jpeg" alt="Product 2" class="w-full h-64 object-cover">
+                    </a>
+                    <div class="p-8">
+                        <a href="product.html" class="block">
+                            <h3 class="text-2xl font-semibold mb-4">Product 2</h3>
+                        </a>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Description of product 2.</p>
+                        <p class="text-3xl font-bold mb-6">$39.99</p>
+                        <button
+                            class="add-to-cart-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full transition duration-300 transform hover:scale-105"
+                            data-product-id="2" data-product-name="Product 2" data-product-price="39.99">Add to
+                            Cart</button>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="img/product3.jpg" alt="Product 3" class="w-full h-48 object-cover rounded-t-lg">
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Product 3</h2>
-                        <p class="text-gray-700 mb-4">Description of product 3.</p>
-                        <p class="text-2xl font-bold mb-4">$49.99</p>
-                        <a href="product.html" class="block bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600">View Product</a>
+                <div class="product-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+                    <a href="product.html" class="block">
+                        <img src="img/rugby.jpeg" alt="Product 3" class="w-full h-64 object-cover">
+                    </a>
+                    <div class="p-8">
+                        <a href="product.html" class="block">
+                            <h3 class="text-2xl font-semibold mb-4">Product 3</h3>
+                        </a>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Description of product 3.</p>
+                        <p class="text-3xl font-bold mb-6">$49.99</p>
+                        <button
+                            class="add-to-cart-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full transition duration-300 transform hover:scale-105"
+                            data-product-id="3" data-product-name="Product 3" data-product-price="49.99">Add to
+                            Cart</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="bg-black text-white">
-        <div class="container mx-auto py-4">
-            <div class="footer-links mb-4">
-                <a href="#" class="hover:text-gray-400">Home</a>
-                <a href="#" class="hover:text-gray-400">Shop</a>
-                <a href="#" class="hover:text-gray-400">About</a>
-                <a href="#" class="hover:text-gray-400">Contact</a>
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-8 mb-8">
+                <a href="#" class="hover:text-gray-300 transition duration-300">Home</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">Shop</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">About</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300">Contact</a>
             </div>
-            <p>&copy; 2024 Fitness+ Store</p>
+            <p class="text-center text-gray-500">&copy; 2024 Fitness+ Store. All rights reserved.</p>
         </div>
     </footer>
+    <script src="js/scripts.js"></script>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.querySelector('html');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            moonIcon.classList.toggle('hidden');
+            sunIcon.classList.toggle('hidden');
+
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            html.classList.add('dark');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+
+        function showNotification(productName) {
+            const notification = document.createElement('div');
+            notification.classList.add('notification');
+            notification.innerHTML = `
+                <p>Product added to cart: ${productName}</p>
+                <div class="notification-buttons">
+                    <button onclick="window.location.href='cart.html'">Go to Cart</button>
+                    <button onclick="this.parentElement.parentElement.remove()">Continue Shopping</button>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        document.querySelectorAll('.add-to-cart-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const productName = this.getAttribute('data-product-name');
+                showNotification(productName);
+            });
+        });
+    </script>
 </body>
+
 </html>
